@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from "./data.service";
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,9 @@ import {DataService} from "./data.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'ng-project';
+  title = 'Angular Demo';
 name: string;
+config: object;
   constructor(private dataService: DataService) {}
 
   getName() {
@@ -17,5 +19,14 @@ name: string;
 
   ngOnInit(){
   this.getName();
+  this.showConfig();
+  }
+
+  showConfig() {
+    this.dataService.getPokemons()
+      .subscribe((data: DataService) =>{
+      this.config= data
+      });
   }
 }
+
